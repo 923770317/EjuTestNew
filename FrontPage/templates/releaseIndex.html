@@ -1,11 +1,6 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <title>上线模块版本汇总</title>
-</head>
-<body>
-<table>
+{% extends "base.html" %}
+{% block content %}
+<table class="table">
     <tr><th>模块</th><th>版本号</th><th>最后上线日期</th><th>所属项目</th><th>备注</th></tr>
     {% for releaseObj in reObjects %}
         <tr>
@@ -17,6 +12,4 @@
         </tr>
     {% endfor %}
 </table>
-
-</body>
-</html>
+{% endblock %}
