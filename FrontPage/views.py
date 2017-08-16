@@ -9,7 +9,12 @@ from models import ReleaseVersion
 # releaseVersion 模块首页
 def releaseIndex(request):
 
-    reObjects = ReleaseVersion.objects.all()
+    modelName = request.GET.get("searchText")
+    reObjects = None
+    if modelName:
+        reObjects = ReleaseVersion.objects.filter(mod__icontains=modelName).order_by("-lastOnLineDate")
+    else:
+        reObjects = ReleaseVersion.objects.all().order_by("-lastOnLineDate")
 
     return render_to_response('releaseIndex.html',{'reObjects':reObjects})
 
@@ -20,5 +25,5 @@ def index(request):
 
 #删除支付密码
 def deletePassWord(request):
-    memberId = request.REQUEST.get("memberId")
+    memberId = request.GET.get("memberId")
     env = request.REQUEST.get("env")

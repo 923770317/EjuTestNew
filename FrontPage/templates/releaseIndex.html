@@ -1,7 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <form method="get"  class="form-inline" action="/frontpage/release">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="searchText" placeholder="哒哒哒">
+                    </div>
+                    <button type="submit" class="btn btn-default">Go!</button>
+                </form>
+             </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+   </div><!-- /.row -->
+
 <table class="table">
-    <tr><th>模块</th><th>版本号</th><th>最后上线日期</th><th>所属项目</th><th>备注</th></tr>
+    <thead>
+        <tr>
+            <th>模块</th>
+            <th>版本号</th>
+            <th>最后上线日期</th>
+            <th>所属项目</th>
+            <th>备注</th>
+        </tr>
+    </thead>
+    <tbody>
     {% for releaseObj in reObjects %}
         <tr>
             <td>{{ releaseObj.mod }}</td>
@@ -11,5 +33,6 @@
             <td>{{ releaseObj.remark }}</td>
         </tr>
     {% endfor %}
+    </tbody>
 </table>
 {% endblock %}
