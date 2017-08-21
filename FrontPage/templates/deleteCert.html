@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <form class="form-inline" method="get" action="/frontpage/tools/deleteCert/">
+        <div class="form-group">
+            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+            <div class="input-group">
+                <div class="input-group-addon">会员号：</div>
+                <input type="text" name="memberId" class="form-control" id="exampleInputAmount" placeholder="000000">
+
+            </div>
+        </div>
+    <button type="submit" class="btn btn-primary">DELETE CERT</button>
+</form>
+
+{% endblock %}

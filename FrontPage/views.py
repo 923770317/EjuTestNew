@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from models import ReleaseVersion
+import sys
+sys.path.append("/util")
+from util import oracleUtil as ou
 
 # Create your views here.
 
@@ -27,3 +30,14 @@ def index(request):
 def deletePassWord(request):
     memberId = request.GET.get("memberId")
     env = request.REQUEST.get("env")
+
+
+#删除实名认证
+def deleteCert(request):
+    member_id  = request.GET.get("memberId")
+    if member_id:
+        oracle_Util = ou.oracleUtil("test")
+        oracle_Util.deleteCertByMemberId(member_id)
+        return HttpResponse("delte success")
+    else:
+        return render_to_response("deleteCert.html")
