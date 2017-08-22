@@ -23,14 +23,17 @@ class oracleUtil():
         try:
             sql = 'update mb.tb_cert c set c.logic_delete = 1 where c.member_id=%s' % member_id
             self.cursor.execute(sql)
-            self.conn.commit()
-        except Exception,e:
-            print str(e)
-        finally:
+            result = self.conn.commit()
             self.cursor.close()
             self.conn.close()
+            return "success"
+        except Exception,e:
+            self.cursor.close()
+            self.conn.close()
+            return "false"
+
 
 
 if __name__ == "__main__":
     orac = oracleUtil("test")
-    orac.deleteCertByMemberId('1009441')
+    orac.deleteCertByMemberId('1009442')

@@ -36,10 +36,9 @@ def deletePassWord(request):
 #删除实名认证
 def deleteCert(request):
 
-    if request.method == "post":
-
-        member_id  = request.POST.get("memberId")
-        env  = request.GET.POST("optionsRadios")
+    if str(request.method) == "POST":
+        member_id = request.POST.get("memberId")
+        env = request.POST.get("optionsRadios")
 
         if member_id is None:
             return "member_id is required"
@@ -50,4 +49,3 @@ def deleteCert(request):
         return HttpResponse("delte success")
     else:
         return render_to_response("deleteCert.html")
-        # return HttpResponse(env)

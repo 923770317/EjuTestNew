@@ -21,7 +21,7 @@
             <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
             <div class="input-group">
                 <div class="input-group-addon">会员号：</div>
-                <input type="text" name="memberId" class="form-control" id="exampleInputAmount" placeholder="000000">
+                <input type="text" name="memberId" class="form-control" id="memberId" placeholder="100000">
 
             </div>
         </div>
@@ -30,17 +30,16 @@
     <script>
     $('.delete-cert').on('submit', function (e) {
         e.preventDefault();
-
         //询问框
-        layer.confirm('您是如何看待前端开发？', {
+        layer.confirm('删除实名认证？', {
           btn: ['删除','取消'] //按钮
         }, function(){
             $.ajax({
                 url: '/frontpage/tools/deleteCert/',
                 type: 'post',
-                data: {},
+                data: {"memberId": $('#memberId').val(),"env": $('[name="optionsRadios"]:checked').val()},
                 success: function (res) {
-                    //
+                    layer.msg('删除成功')
                 },
                 error: function (res) {
                     layer.msg(res.msg)
