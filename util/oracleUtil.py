@@ -7,7 +7,7 @@ class oracleUtil():
         try:
             self.conn = None
             if env == "test":
-                self.conn = cx_Oracle.connect('cs_test_44','cs_test_44','10.0.35.1:1521/testdb')
+                self.conn = cx_Oracle.connect('wangbing','wangbing123','10.0.35.1:1521/testdb')
             else:
                 self.conn = cx_Oracle.connect('jc_test_46','jc_test_46','10.0.35.1:1521/intedb')
             self.cursor = self.conn.cursor()
@@ -21,11 +21,11 @@ class oracleUtil():
 
     def deleteCertByMemberId(self,member_id):
         try:
-            sql = 'delete from mb.tb_cert t where t.member_id = %;' % member_id,
+            sql = 'update mb.tb_cert c set c.logic_delete = 1 where c.member_id=%s' % member_id
             self.cursor.execute(sql)
             self.conn.commit()
         except Exception,e:
-            print "delete member's cert error"
+            print str(e)
         finally:
             self.cursor.close()
             self.conn.close()
@@ -33,4 +33,4 @@ class oracleUtil():
 
 if __name__ == "__main__":
     orac = oracleUtil("test")
-    orac.select()
+    orac.deleteCertByMemberId('1009441')
