@@ -7,14 +7,14 @@ class oracleUtil():
         try:
             self.conn = None
             if env == "test":
-                conn = cx_Oracle.connect('cs_test_44','cs_test_44','10.0.35.1:1521/testdb')
+                self.conn = cx_Oracle.connect('cs_test_44','cs_test_44','10.0.35.1:1521/testdb')
             else:
-                conn = cx_Oracle.connect('jc_test_46','jc_test_46','10.0.35.1:1521/intedb')
-            self.cursor = conn.cursor()
+                self.conn = cx_Oracle.connect('jc_test_46','jc_test_46','10.0.35.1:1521/intedb')
+            self.cursor = self.conn.cursor()
         except Exception, e:
             self.cursor.close()
             self.conn.close()
-            print '创建数据库链接异常'
+            print 'connect the oracle error'
 
     def select(self):
         self.cursor.execute ("SELECT * FROM mb.tb_area")

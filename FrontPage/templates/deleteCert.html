@@ -1,7 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <form class="form-inline" method="get" action="/frontpage/tools/deleteCert/">
+    <form class="form-inline" method="post" action="/frontpage/tools/deleteCert/">
+
+        <div class="radio">
+            <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="test" checked> 测试环境
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="inte"> 集成环境
+            </label>
+        </div>
+
+        </br>
+        </br>
+
         <div class="form-group">
             <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
             <div class="input-group">

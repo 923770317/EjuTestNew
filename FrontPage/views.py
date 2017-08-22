@@ -19,6 +19,7 @@ def releaseIndex(request):
     else:
         reObjects = ReleaseVersion.objects.all().order_by("-lastOnLineDate")
 
+
     return render_to_response('releaseIndex.html',{'reObjects':reObjects})
 
 # 登录后首页
@@ -34,10 +35,19 @@ def deletePassWord(request):
 
 #删除实名认证
 def deleteCert(request):
-    member_id  = request.GET.get("memberId")
-    if member_id:
+
+    if request.method == "post":
+
+        member_id  = request.POST.get("memberId")
+        env  = request.GET.POST("optionsRadios")
+
+        if member_id is None:
+            return "member_id is required"
+
         oracle_Util = ou.oracleUtil("test")
         oracle_Util.deleteCertByMemberId(member_id)
+
         return HttpResponse("delte success")
     else:
         return render_to_response("deleteCert.html")
+        # return HttpResponse(env)
