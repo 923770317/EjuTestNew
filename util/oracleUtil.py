@@ -20,17 +20,18 @@ class oracleUtil():
         self.cursor.execute ("SELECT * FROM mb.tb_area")
 
     def deleteCertByMemberId(self,member_id):
+        resultCode = '000'
         try:
             sql = 'update mb.tb_cert c set c.logic_delete = 1 where c.member_id=%s' % member_id
             self.cursor.execute(sql)
-            result = self.conn.commit()
-            self.cursor.close()
-            self.conn.close()
-            return "success"
+            self.conn.commit()
         except Exception,e:
+            print "delete memberis cert err",str(e)
+            resultCode = '999'
+        finally:
             self.cursor.close()
             self.conn.close()
-            return "false"
+            return resultCode
 
 
 
