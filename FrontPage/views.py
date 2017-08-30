@@ -44,8 +44,8 @@ def deleteCert(request):
             return "member_id is required"
 
         oracle_Util = ou.oracleUtil("test")
-        oracle_Util.deleteCertByMemberId(member_id)
+        resultCode = oracle_Util.deleteCertByMemberId(member_id)
 
-        return HttpResponse("delte success")
+        return HttpResponse(resultCode)
     else:
         return render_to_response("deleteCert.html")

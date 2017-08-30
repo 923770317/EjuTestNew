@@ -39,7 +39,15 @@
                 type: 'post',
                 data: {"memberId": $('#memberId').val(),"env": $('[name="optionsRadios"]:checked').val()},
                 success: function (res) {
-                    layer.msg('删除成功')
+                    if(res == '000')
+                    {
+                        layer.msg('删除成功')
+                    }
+                    else
+                    {
+                        layer.msg('删除失败')
+                    }
+
                 },
                 error: function (res) {
                     layer.msg(res.msg)
