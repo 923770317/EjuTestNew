@@ -39,11 +39,15 @@ def deleteCert(request):
     if str(request.method) == "POST":
         member_id = request.POST.get("memberId")
         env = request.POST.get("optionsRadios")
-
+        oracle_Util = None
         if member_id is None:
             return "member_id is required"
 
-        oracle_Util = ou.oracleUtil("test")
+        if env == "test":
+            oracle_Util = ou.oracleUtil("test")
+        else:
+            oracle_Util = ou.oracleUtil("inte")
+
         resultCode = oracle_Util.deleteCertByMemberId(member_id)
 
         return HttpResponse(resultCode)
