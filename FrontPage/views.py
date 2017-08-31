@@ -9,7 +9,7 @@ from util import oracleUtil as ou
 
 # Create your views here.
 
-# releaseVersion 模块首页
+# releaseVersion's index
 def releaseIndex(request):
 
     modelName = request.GET.get("searchText")
@@ -22,12 +22,12 @@ def releaseIndex(request):
 
     return render_to_response('releaseIndex.html',{'reObjects':reObjects})
 
-# 登录后首页
+# log in the index
 def index(request):
     return render_to_response("index.html")
 
 
-#删除支付密码
+#delete the password
 def deletePassWord(request):
     if str(request.method) == "POST":
         member_id = request.POST.get("memberId")
@@ -45,7 +45,7 @@ def deletePassWord(request):
         return render_to_response("deletePassWord.html")
 
 
-#删除实名认证
+#delete the cert
 def deleteCert(request):
     if str(request.method) == "POST":
         member_id = request.POST.get("memberId")
@@ -65,3 +65,8 @@ def deleteCert(request):
         return HttpResponse(resultCode)
     else:
         return render_to_response("deleteCert.html")
+
+
+#update the account's amount
+def updateAccount(request):
+    return render_to_response("updateAccount.html")

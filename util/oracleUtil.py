@@ -9,7 +9,7 @@ class oracleUtil():
             if env == "test":
                 self.conn = cx_Oracle.connect('wangbing','wangbing123','10.0.35.1:1521/testdb')
             else:
-                self.conn = cx_Oracle.connect('jc_test_46','jc_test_46','10.0.35.1:1521/intedb')
+                self.conn = cx_Oracle.connect('wangbing','wangbing123','10.0.35.1:1521/intedb')
             self.cursor = self.conn.cursor()
         except Exception, e:
             self.cursor.close()
