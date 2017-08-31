@@ -19,6 +19,7 @@ class oracleUtil():
     def select(self):
         self.cursor.execute ("SELECT * FROM mb.tb_area")
 
+
     def deleteCertByMemberId(self,member_id):
         resultCode = '000'
         try:
@@ -34,6 +35,20 @@ class oracleUtil():
             return resultCode
 
 
+    def deletePassWord(self,member_id):
+        resultCode = '000'
+        try:
+            sql = '''update mb.tb_operator t set t.pay_password = null ,t.lock_time = null ,t.last_error_time = null,
+t.password_error_count = null,t.encrypt_strategy = null where t.member_id =%s''' % member_id
+            self.cursor.execute(sql)
+            self.conn.commit()
+        except Exception, e:
+            print "delete password err", str(e)
+            resultCode = '999'
+        finally:
+            self.cursor.close()
+            self.conn.close()
+            return resultCode
 
 if __name__ == "__main__":
     orac = oracleUtil("test")

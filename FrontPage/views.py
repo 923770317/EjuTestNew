@@ -29,19 +29,31 @@ def index(request):
 
 #删除支付密码
 def deletePassWord(request):
-    memberId = request.GET.get("memberId")
-    env = request.REQUEST.get("env")
-
-
-#删除实名认证
-def deleteCert(request):
-
     if str(request.method) == "POST":
         member_id = request.POST.get("memberId")
         env = request.POST.get("optionsRadios")
         oracle_Util = None
+        resultCode = ""
         if member_id is None:
-            return "member_id is required"
+            resultCode = "member_id is required"
+        if env == "test":
+            oracle_Util = ou.oracleUtil("test")
+        else:
+            oracle_Util = ou.oracleUtil("inte")
+
+    else:
+        return render_to_response("deletePassWord.html")
+
+
+#删除实名认证
+def deleteCert(request):
+    if str(request.method) == "POST":
+        member_id = request.POST.get("memberId")
+        env = request.POST.get("env")
+        oracle_Util = None
+        resultCode = ""
+        if member_id is None:
+            resultCode =  "member_id is required"
 
         if env == "test":
             oracle_Util = ou.oracleUtil("test")
