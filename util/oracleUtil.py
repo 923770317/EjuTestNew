@@ -50,9 +50,10 @@ t.password_error_count = null,t.encrypt_strategy = null where t.member_id =%s'''
             return resultCode
 
     def updateAccountByMemberId(self,memberId,amount):
-        resultCode = '000'
-        try:
-            sql =
+        # resultCode = '000'
+        # try:
+        #     sql =
+        pass
 
 if __name__ == "__main__":
     orac = oracleUtil("test")
