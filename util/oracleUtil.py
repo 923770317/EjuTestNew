@@ -50,10 +50,22 @@ t.password_error_count = null,t.encrypt_strategy = null where t.member_id =%s'''
             return resultCode
 
     def updateAccountByMemberId(self,memberId,amount):
-        # resultCode = '000'
-        # try:
-        #     sql =
-        pass
+        resultCode = '000'
+        try:
+            sql = 'update account.tb_account t set t.available_balance = %s where t.member_id = %s and t.account_type_id = 1' % (amount,memberId)
+            self.cursor.execute(sql)
+            self.conn.commit()
+
+        except Exception, e:
+            print "delete password err", str(e)
+            resultCode = '999'
+
+        finally:
+            self.cursor.close()
+            self.conn.close()
+            return resultCode
+
+
 
 if __name__ == "__main__":
     orac = oracleUtil("test")

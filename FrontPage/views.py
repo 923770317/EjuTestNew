@@ -6,6 +6,7 @@ from models import ReleaseVersion
 import sys
 sys.path.append("/util")
 from util import oracleUtil as ou
+from util import toolsUtil
 
 # Create your views here.
 
@@ -84,6 +85,7 @@ def updateAccount(request):
             oracle_Util = ou.oracleUtil("test")
         else:
             oracle_Util = ou.oracleUtil("inte")
-
-
+        resultCode = oracle_Util.updateAccountByMemberId(member_id,amount)
+        toolsUtil.refreshAccountByMemberId(member_id,env)
+        return HttpResponse(resultCode)
     return render_to_response("updateAccount.html")

@@ -39,7 +39,7 @@
             $.ajax({
                 url: '/frontpage/tools/updateAccount/',
                 type: 'post',
-                data: {"memberId": $('#memberId').val(),"amount": $('amount').val()},
+                data: {"memberId": $('#memberId').val(),"amount": $('#amount').val(),"env": $('[name="optionsRadios"]:checked').val()},
                 success: function (res) {
                     if(res == '000')
                     {
