@@ -16,8 +16,7 @@ class oracleUtil():
             self.conn.close()
             print 'connect the oracle error'
 
-    def select(self):
-        self.cursor.execute ("SELECT * FROM mb.tb_area")
+
 
 
     def deleteCertByMemberId(self,member_id):

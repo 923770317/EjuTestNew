@@ -31,7 +31,7 @@ def index(request):
 def deletePassWord(request):
     if str(request.method) == "POST":
         member_id = request.POST.get("memberId")
-        env = request.POST.get("optionsRadios")
+        env = request.POST.get("env")
         oracle_Util = None
         resultCode = ""
         if member_id is None:
@@ -40,6 +40,8 @@ def deletePassWord(request):
             oracle_Util = ou.oracleUtil("test")
         else:
             oracle_Util = ou.oracleUtil("inte")
+        resultCode = oracle_Util.deletePassWord(member_id)
+        return HttpResponse(resultCode)
 
     else:
         return render_to_response("deletePassWord.html")
