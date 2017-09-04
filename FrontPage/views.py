@@ -71,4 +71,19 @@ def deleteCert(request):
 
 #update the account's amount
 def updateAccount(request):
+    if str(request.method) == 'POST':
+        member_id = request.POST.get("memberId")
+        env = request.POST.get("env")
+        amount = request.POST.get('amount')
+        oracle_Util = None
+        resultCode = ""
+        if member_id is None or amount is None:
+            return 'pls enter the para'
+
+        if env == "test":
+            oracle_Util = ou.oracleUtil("test")
+        else:
+            oracle_Util = ou.oracleUtil("inte")
+
+
     return render_to_response("updateAccount.html")
