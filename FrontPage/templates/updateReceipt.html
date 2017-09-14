@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <form class="form-inline delete-cert" method="post" action="/frontpage/tools/updateReceiptAmount/">
+
+        <div class="radio">
+            <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="test" checked> 测试环境
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="inte"> 集成环境
+            </label>
+        </div>
+
+        </br>
+        </br>
+
+        <div class="form-group">
+            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+            <div class="input-group">
+                <div class="input-group-addon">RECEIPT_ID：</div>
+                <input type="text" name="memberId" class="form-control" id="receiptId" placeholder="000000">
+                <div class="input-group-addon">AMOUNT：</div>
+                <input type="text" name="amount" class="form-control" id="amount" placeholder="0.00">
+
+            </div>
+        </div>
+    <button type="submit" class="btn btn-primary">UPDATE RECEIPT</button>
+</form>
+    <script>
+    $('.delete-cert').on('submit', function (e) {
+        e.preventDefault();
+        //询问框
+        layer.confirm('ARE YOU SURE？', {
+          btn: ['YES','NO'] //按钮
+        }, function(){
+            $.ajax({
+                url: '/frontpage/tools/updateReceiptAmount/',
+                type: 'post',
+                data: {"receiptId": $('#receiptId').val(),"amount": $('#amount').val(),"env": $('[name="optionsRadios"]:checked').val()},
+                success: function (res) {
+                    if(res == '000')
+                    {
+                        layer.msg('UPDATE SUCCESS')
+                        $('#receiptId').val("")
+                        $('#amount').val("")
+                    }
+                    else
+                    {
+                        layer.msg('UPDATE FAILED')
+                        $('#amount').val("")
+                        $('#receiptId').val("")
+
+                    }
+
+                },
+                error: function (res) {
+                    layer.msg(res.msg)
+                    $('#receiptId').val("")
+                    $('#amount').val("")
+
+                }
+            })
+        });
+    })
+    </script>
+
+{% endblock %}

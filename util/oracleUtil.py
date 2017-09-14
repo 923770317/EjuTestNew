@@ -57,7 +57,7 @@ t.password_error_count = null,t.encrypt_strategy = null where t.member_id =%s'''
             self.conn.commit()
 
         except Exception, e:
-            print "delete password err", str(e)
+            print "update member's amount err", str(e)
             resultCode = '999'
 
         finally:
@@ -65,6 +65,22 @@ t.password_error_count = null,t.encrypt_strategy = null where t.member_id =%s'''
             self.conn.close()
             return resultCode
 
+    def updateReceiptById(self,receiptId,amount):
+        resultCode = '000'
+        try:
+            sql = 'update account.tb_receipt t set t.available_balance = %s where t.id = %s' % (
+            amount, receiptId)
+            self.cursor.execute(sql)
+            self.conn.commit()
+
+        except Exception, e:
+            print "udpate receipt's amount err", str(e)
+            resultCode = '999'
+
+        finally:
+            self.cursor.close()
+            self.conn.close()
+            return resultCode
 
 
 if __name__ == "__main__":

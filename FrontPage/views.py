@@ -89,3 +89,25 @@ def updateAccount(request):
         toolsUtil.refreshAccountByMemberId(member_id,env)
         return HttpResponse(resultCode)
     return render_to_response("updateAccount.html")
+
+#udpate the receipt's amount
+def updateReceiptAmount(request):
+    if str(request.method) == 'POST':
+        receipt_id = request.POST.get('receiptId')
+        env = request.POST.get('env')
+        amount = request.POST.get('amount')
+        oracle_Util = None
+        resultCode = ""
+        if receipt_id is None or amount is None:
+            return 'pls enter the para'
+
+        if env == "test":
+
+            oracle_Util = ou.oracleUtil("test")
+        else:
+            oracle_Util = ou.oracleUtil("inte")
+
+        resultCode = oracle_Util.updateReceiptById(receipt_id, amount)
+        toolsUtil.refreshReceiptById(receipt_id, env)
+        return HttpResponse(resultCode)
+    return render_to_response('updateReceipt.html')

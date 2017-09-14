@@ -24,5 +24,17 @@ def refreshAccountByMemberId(memberId,env):
     except Exception as e:
         print str(e)
 
+def refreshReceiptById(receiptId,env):
+    url = ''
+    if env == 'test':
+        url = 'https://test2.ejupay.cn/account-inrpc/balanceAuth/receipt?id=%s' % receiptId
+    else:
+        url = 'https://inte.ejupay.cn/account-inrpc/balanceAuth/receipt?id=%s' % receiptId
+    try:
+        req = urllib2.Request(url)
+        res_data = urllib2.urlopen(req)
+    except Exception as e:
+        print str(e)
+
 if __name__ == "__main__":
     refreshAccount()
