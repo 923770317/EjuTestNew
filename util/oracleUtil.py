@@ -82,6 +82,45 @@ t.password_error_count = null,t.encrypt_strategy = null where t.member_id =%s'''
             self.conn.close()
             return resultCode
 
+    def getServiceId(self,service_code):
+        serviceId = ''
+        try:
+            sql = "select service_id from gateway.tb_partner_service where code = '%s' and rownum <=1" % service_code
+            self.cursor.execute(sql)
+            while (1):
+                row = self.cursor.fetchone()
+                if row == None:
+                    break
+                serviceId = row[0]
+
+        except Exception, e:
+            print "select err", str(e)
+            resultCode = ''
+
+        finally:
+            return str(serviceId)
+
+
+
+
+    def interfaceGrant(self,partner_id,service_code):
+        resultCode = '000'
+        try:
+            serviceId = self.getServiceId(service_code)
+            if not serviceId:
+                return '999'
+            sql = "insert into gateway.tb_partner_service values(%s,%s,'%s',1)" %(partner_id,serviceId,service_code)
+            self.cursor.execute(sql)
+            self.conn.commit()
+        except Exception, e:
+            print "GRANT ERR", str(e)
+            resultCode = '999'
+        finally:
+            self.cursor.close()
+            self.conn.close()
+            return resultCode
+
+
 
 if __name__ == "__main__":
     orac = oracleUtil("test")

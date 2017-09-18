@@ -116,11 +116,17 @@ def updateReceiptAmount(request):
 def interfaceGrant(request):
     if str(request.method) == 'POST':
         partner_id = request.POST.get("partner_id")
-        service_code = request.POST.get('serviceCode')
+        service_code = request.POST.get('service_code')
         env = request.POST.get('env')
         oracle_Util = None
         resultCode = ''
-        
+        if service_code == '' or partner_id == '':
+            return 'pls enter the para'
+        if env == "test":
 
-
+            oracle_Util = ou.oracleUtil("test")
+        else:
+            oracle_Util = ou.oracleUtil("inte")
+        resuleCode = oracle_Util.interfaceGrant(partner_id,service_code)
+        return HttpResponse(resultCode)
     return render_to_response('interfaceGrant.html')

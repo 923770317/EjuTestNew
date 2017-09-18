@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <form class="form-inline delete-cert" method="post" action="/frontpage/tools/updateReceiptAmount/">
+    <form class="form-inline delete-cert" method="post" action="/frontpage/tools/interfaceGrant/">
 
         <div class="radio">
             <label>
@@ -49,7 +49,7 @@
                     }
                     else
                     {
-                        layer.msg('UPDATE FAILED')
+                        layer.msg('GRANT FAILED')
                         $('#partnerId').val("")
                         $('#serviceCode').val("")
 
