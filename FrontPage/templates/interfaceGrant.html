@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <form class="form-inline delete-cert" method="post" action="/frontpage/tools/updateReceiptAmount/">
+
+        <div class="radio">
+            <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="test" checked> 测试环境
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="inte"> 集成环境
+            </label>
+        </div>
+
+        </br>
+        </br>
+
+        <div class="form-group">
+
+            <div class="input-group">
+                <div class="input-group-addon">PARTNER_ID：</div>
+                <input type="text" name="partnerId" class="form-control" id="partnerId" placeholder="100000">
+                <div class="input-group-addon">SERVICE_CODE：</div>
+                <input type="text" name="serviceCode" class="form-control" id="serviceCode">
+
+            </div>
+        </div>
+    <button type="submit" class="btn btn-primary">GRANT</button>
+</form>
+    <script>
+    $('.delete-cert').on('submit', function (e) {
+        e.preventDefault();
+        //询问框
+        layer.confirm('ARE YOU SURE？', {
+          btn: ['YES','NO'] //按钮
+        }, function(){
+            $.ajax({
+                url: '/frontpage/tools/interfaceGrant/',
+                type: 'post',
+                data: {"partner_id": $('#partnerId').val(),"service_code": $('#serviceCode').val(),"env": $('[name="optionsRadios"]:checked').val()},
+                success: function (res) {
+                    if(res == '000')
+                    {
+                        layer.msg('GRANT SUCCESS')
+                        $('#partnerId').val("")
+                        $('#serviceCode').val("")
+                    }
+                    else
+                    {
+                        layer.msg('UPDATE FAILED')
+                        $('#partnerId').val("")
+                        $('#serviceCode').val("")
+
+                    }
+
+                },
+                error: function (res) {
+                    layer.msg(res.msg)
+                    $('#partnerId').val("")
+                    $('#serviceCode').val("")
+
+                }
+            })
+        });
+    })
+    </script>
+
+{% endblock %}

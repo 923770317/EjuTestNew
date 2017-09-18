@@ -111,3 +111,16 @@ def updateReceiptAmount(request):
         toolsUtil.refreshReceiptById(receipt_id, env)
         return HttpResponse(resultCode)
     return render_to_response('updateReceipt.html')
+
+
+def interfaceGrant(request):
+    if str(request.method) == 'POST':
+        partner_id = request.POST.get("partner_id")
+        service_code = request.POST.get('serviceCode')
+        env = request.POST.get('env')
+        oracle_Util = None
+        resultCode = ''
+        
+
+
+    return render_to_response('interfaceGrant.html')
