@@ -127,6 +127,6 @@ def interfaceGrant(request):
             oracle_Util = ou.oracleUtil("test")
         else:
             oracle_Util = ou.oracleUtil("inte")
-        resuleCode = oracle_Util.interfaceGrant(partner_id,service_code)
+        resultCode = oracle_Util.interfaceGrant(partner_id,service_code)
         return HttpResponse(resultCode)
     return render_to_response('interfaceGrant.html')
