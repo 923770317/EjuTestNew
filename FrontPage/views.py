@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from models import ReleaseVersion
+from models import ProdectSiste
 import sys
 sys.path.append("/util")
 from util import oracleUtil as ou
@@ -22,6 +23,18 @@ def releaseIndex(request):
 
 
     return render_to_response('releaseIndex.html',{'reObjects':reObjects})
+
+#线上应用分布
+def productSites(request):
+    modelName = request.GET.get("searchText")
+    reObjects = None
+    if modelName:
+        reObjects =  ProdectSiste.objects.filter(modeleNmae__icontains=modelName)
+    else:
+        reObjects = ProdectSiste.objects.all().order_by("modeleNmae")
+
+    return render_to_response('productSites.html',{'reObjects':reObjects})
+
 
 # log in the index
 def index(request):

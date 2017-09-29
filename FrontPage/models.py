@@ -20,3 +20,13 @@ class ReleaseVersion(models.Model):
 
     def __unicode__(self):
         return self.mod
+
+
+class ProdectSiste(models.Model):
+    modeleNmae= models.CharField(u'应用名',max_length=30)
+    g4Address = models.CharField(u'G4地址',max_length=30)
+    g5Address = models.CharField(u'G5地址', max_length=30)
+    port = models.CharField(u'端口号',max_length=10)
+
+    def __unicode__(self):
+        return self.modeleNmae
