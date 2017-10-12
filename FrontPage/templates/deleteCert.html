@@ -39,14 +39,14 @@
                 type: 'post',
                 data: {"memberId": $('#memberId').val(),"env": $('[name="optionsRadios"]:checked').val()},
                 success: function (res) {
-                    if(res == '000')
+                    if(res['status'] == '000')
                     {
-                        layer.msg('删除实名认证成功')
+                        layer.msg(res['message'])
                         $('#memberId').val("")
                     }
                     else
                     {
-                        layer.msg('删除实名认证失败')
+                        layer.msg(res['message'])
                         $('#memberId').val("")
                     }
 

@@ -8,7 +8,7 @@ import sys
 sys.path.append("/util")
 from util import oracleUtil as ou
 from util import toolsUtil
-
+from django.http import JsonResponse
 # Create your views here.
 
 # releaseVersion's index
@@ -63,22 +63,23 @@ def deletePassWord(request):
 
 #delete the cert
 def deleteCert(request):
+    status ='000'
+    message = ''
     if str(request.method) == "POST":
         member_id = request.POST.get("memberId")
         env = request.POST.get("env")
-        oracle_Util = None
-        resultCode = ""
-        if member_id is None:
-            resultCode =  "member_id is required"
+        if not member_id:
+            return JsonResponse({'status': '777', 'message': 'member_id is null'})
+        try:
+            ou.oracleUtil.deleteCertByMemberId(member_id,env)
+        except Exception as e :
+            status = '999'
+            message = str(e)
 
-        if env == "test":
-            oracle_Util = ou.oracleUtil("test")
-        else:
-            oracle_Util = ou.oracleUtil("inte")
-
-        resultCode = oracle_Util.deleteCertByMemberId(member_id)
-
-        return HttpResponse(resultCode)
+        finally:
+            ou.cursor.close()
+            ou.conn.close()
+            return JsonResponse({'status':'000','message':'delete success'})
     else:
         return render_to_response("deleteCert.html")
 
