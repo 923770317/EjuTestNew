@@ -25,7 +25,7 @@ def releaseIndex(request):
 
     return render_to_response('releaseIndex.html',{'reObjects':reObjects})
 
-#线上应用分布
+#线上应用分布1
 def productSites(request):
     modelName = request.GET.get("searchText")
     reObjects = None
