@@ -60,8 +60,8 @@ def deletePassWord(request):
         except Exception as e :
             status = '999'
             message = str(e)
-        ou.cursor.close()
-        ou.conn.close()
+        ou.oracleUtil.cursor.close()
+        ou.oracleUtil.conn.close()
         return JsonResponse({'status':status,'message':message})
     else:
         return render_to_response("deletePassWord.html")
@@ -85,8 +85,8 @@ def deleteCert(request):
         except Exception as e :
             status = '999'
             message = str(e)
-        ou.cursor.close()
-        ou.conn.close()
+        ou.oracleUtil.cursor.close()
+        ou.oracleUtil.conn.close()
         return JsonResponse({'status':status,'message':message})
     else:
         return render_to_response("deleteCert.html")
@@ -111,8 +111,8 @@ def updateAccount(request):
         except Exception as e :
             status = '999'
             message = str(e)
-        ou.cursor.close()
-        ou.conn.close()
+        ou.oracleUtil.cursor.close()
+        ou.oracleUtil.conn.close()
         return JsonResponse({'status':status,'message':message})
     return render_to_response("updateAccount.html")
 
@@ -140,8 +140,8 @@ def updateReceiptAmount(request):
             status = '999'
             message = str(e)
 
-        ou.cursor.close()
-        ou.conn.close()
+        ou.oracleUtil.cursor.close()
+        ou.oracleUtil.conn.close()
         return JsonResponse({'status': status, 'message': message})
     return render_to_response('updateReceipt.html')
 
@@ -164,7 +164,7 @@ def interfaceGrant(request):
             status = '999'
             message = str(e)
 
-        ou.cursor.close()
-        ou.conn.close()
+        ou.oracleUtil.cursor.close()
+        ou.oracleUtil.conn.close()
         return JsonResponse({'status': status, 'message': message})
     return render_to_response('interfaceGrant.html')
