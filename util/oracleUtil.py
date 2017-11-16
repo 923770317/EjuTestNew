@@ -85,7 +85,7 @@ t.password_error_count = null,t.encrypt_strategy = null where t.member_id =%s'''
         if not result:
             return False
         else:
-            print  True
+            return True
 
 
 
