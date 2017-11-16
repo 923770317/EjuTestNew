@@ -41,15 +41,15 @@
                 type: 'post',
                 data: {"partner_id": $('#partnerId').val(),"service_code": $('#serviceCode').val(),"env": $('[name="optionsRadios"]:checked').val()},
                 success: function (res) {
-                    if(res == '000')
+                    if(res['status'] == '000')
                     {
-                        layer.msg('GRANT SUCCESS')
+                        layer.msg(res['message'])
                         $('#partnerId').val("")
                         $('#serviceCode').val("")
                     }
                     else
                     {
-                        layer.msg('GRANT FAILED')
+                        layer.msg(res['message'])
                         $('#partnerId').val("")
                         $('#serviceCode').val("")
 

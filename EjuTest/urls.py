@@ -21,5 +21,6 @@ from FrontPage import urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^frontpage/',include(FrontPage.urls),)
+    url(r'^frontpage/',include(FrontPage.urls),),
+    url(r'^api/',include(FrontPage.urls),)
 ]

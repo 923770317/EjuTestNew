@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <form class="form-inline delete-cert" method="post" action="/frontpage/tools/deletePassWord/">
+    <form class="form-inline delete-cert" method="post" action="/frontpage/tools/sendRequest/">
 
         <div class="radio">
             <label>
@@ -16,6 +16,23 @@
 
         </br>
         </br>
+        商户：
+        <select class="form-control">
+            {% for partner in partners %}
+                <option>{{ partner }}</option>
+            {% endfor %}
+        </select>
+
+        </br>
+        </br>
+
+        接口：
+         <select class="form-control">
+            <option></option>
+        </select>
+
+        </br>
+        </br>
 
         <div class="form-group">
             <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
@@ -25,17 +42,17 @@
 
             </div>
         </div>
-    <button type="submit" class="btn btn-primary">DELETE PASSWORD</button>
+    <button type="submit" class="btn btn-primary">DELETE CERT</button>
 </form>
     <script>
     $('.delete-cert').on('submit', function (e) {
         e.preventDefault();
         //询问框
-        layer.confirm('删除支付密码？', {
+        layer.confirm('删除实名认证？', {
           btn: ['删除','取消'] //按钮
         }, function(){
             $.ajax({
-                url: '/frontpage/tools/deletePassWord/',
+                url: '/frontpage/tools/deleteCert/',
                 type: 'post',
                 data: {"memberId": $('#memberId').val(),"env": $('[name="optionsRadios"]:checked').val()},
                 success: function (res) {
@@ -53,6 +70,8 @@
                 },
                 error: function (res) {
                     layer.msg(res.msg)
+                    $('#memberId').val("")
+
                 }
             })
         });

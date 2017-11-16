@@ -8,6 +8,7 @@ import sys
 sys.path.append("/util")
 from util import oracleUtil as ou
 from util import toolsUtil
+from util import confUtil
 from django.http import JsonResponse
 from cx_Oracle import DatabaseError
 # Create your views here.
@@ -149,6 +150,7 @@ def updateReceiptAmount(request):
 #接口授权
 def interfaceGrant(request):
     if str(request.method) == 'POST':
+        message = 'success,hehe'
         partner_id = request.POST.get("partner_id")
         service_code = request.POST.get('service_code')
         env = request.POST.get('env')
@@ -168,3 +170,23 @@ def interfaceGrant(request):
         ou.oracleUtil.conn.close()
         return JsonResponse({'status': status, 'message': message})
     return render_to_response('interfaceGrant.html')
+
+#模拟页面发送请求
+def sendRequest(request):
+    if str(request.method) == 'POST':
+        env  = request.POST.get('env')
+        partner_id = request.POST.get('partner_id')
+        interface_name = request.POST.get('interface_name')
+        confUtil.confUtil.initConf()
+        parameters = confUtil.confUtil.getParameters(partner_id,interface_name)
+        request_body = '{\"'
+        for parameter in parameters:
+            request_body += parameter + '\":\"' + request.POST.get(parameter,'') + '\",\"'
+        request_body += 'service\":\"' + interface_name + '\"}'
+        json = toolsUtil.get_post_json(request_body)
+        print toolsUtil.post_request(env,json)
+
+    confUtil.confUtil.initConf()
+    partners = confUtil.confUtil.getSections()
+    return render_to_response('sendRequest.html',{'partners':partners})
+

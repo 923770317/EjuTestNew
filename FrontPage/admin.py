@@ -8,6 +8,8 @@ class ReleaseAdmin(admin.ModelAdmin):
 
 class ProductSiteAdmin(admin.ModelAdmin):
     list_display = ('modeleNmae','g4Address','g5Address','port')
+    search_fields = ['modeleNmae']
+
 
 
 admin.site.register(ReleaseVersion,ReleaseAdmin)

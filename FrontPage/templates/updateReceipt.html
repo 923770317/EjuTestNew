@@ -41,15 +41,15 @@
                 type: 'post',
                 data: {"receiptId": $('#receiptId').val(),"amount": $('#amount').val(),"env": $('[name="optionsRadios"]:checked').val()},
                 success: function (res) {
-                    if(res == '000')
+                    if(res['status' == '000'])
                     {
-                        layer.msg('UPDATE SUCCESS')
+                        layer.msg(res['message'])
                         $('#receiptId').val("")
                         $('#amount').val("")
                     }
                     else
                     {
-                        layer.msg('UPDATE FAILED')
+                        layer.msg(res['message'])
                         $('#amount').val("")
                         $('#receiptId').val("")
 
@@ -57,7 +57,7 @@
 
                 },
                 error: function (res) {
-                    layer.msg(res.msg)
+                    layer.msg(res['message'])
                     $('#receiptId').val("")
                     $('#amount').val("")
 
