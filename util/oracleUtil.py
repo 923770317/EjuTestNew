@@ -21,7 +21,7 @@ class oracleUtil(object):
         oracleUtil.initConandCursor(env)
         if not oracleUtil.isMemberExist(member_id):
             raise  Exception('there is no member like this id')
-        sql = 'update mb.tb_cert c set c.logic_delete = 1 where c.member_id=%s' % member_id
+        sql = 'update mb.tb_cert c set c.logic_delete = 1 where c.member_id=%s and c.logic_delete = 0' % member_id
         oracleUtil.cursor.execute(sql)
         oracleUtil.conn.commit()
 
@@ -75,7 +75,7 @@ t.password_error_count = null,t.encrypt_strategy = null where t.member_id =%s'''
         if not result :
             return False
         else:
-            print  True
+            return True
 
     @staticmethod
     def isReceiptExist(receipt_id):
