@@ -150,6 +150,7 @@ def updateReceiptAmount(request):
 #接口授权
 def interfaceGrant(request):
     if str(request.method) == 'POST':
+        status = '000'
         message = 'success,hehe'
         partner_id = request.POST.get("partner_id")
         service_code = request.POST.get('service_code')
