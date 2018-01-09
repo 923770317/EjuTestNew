@@ -26,6 +26,22 @@ def refreshAccountByMemberId(memberId,env):
     except Exception as e:
         print str(e)
 
+
+def getParnter(env,memberId):
+    url = ''
+    url = ''
+    if env == 'test':
+        url = 'https://test2.ejupay.cn/gateway-mock/mock/getPartner?id=%s' % memberId
+    else:
+        url = 'https://inte2.ejupay.cn/gateway-mock/mock/getPartner?id=%s' % memberId
+    try:
+        req = requests.get(url)
+        return req.json()['SignatureKey']
+
+    except Exception as e:
+        print str(e)
+
+
 def refreshReceiptById(receiptId,env):
     url = ''
     if env == 'test':
@@ -33,7 +49,7 @@ def refreshReceiptById(receiptId,env):
     else:
         url = 'https://inte.ejupay.cn/account-inrpc/balanceAuth/receipt?id=%s' % receiptId
     try:
-        req = urllib2.Request(url)
+        req = requests.get(url)
         res_data = urllib2.urlopen(req)
     except Exception as e:
         print str(e)
@@ -61,4 +77,4 @@ if __name__ == "__main__":
     # refreshAccount()
     # getParamesrs
 
-    print post_request(json)
+    print getParnter('test','1002856')

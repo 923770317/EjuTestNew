@@ -11,6 +11,10 @@ from util import toolsUtil
 from util.confUtil import confUtil
 from django.http import JsonResponse
 from cx_Oracle import DatabaseError
+from util import singUtil as su
+import json
+import requests
+from util.Constants import  Constants  as Const
 # Create your views here.
 
 
@@ -177,15 +181,38 @@ def sendRequest(request):
     if str(request.method) == 'POST':
         env  = request.POST.get('env')
         partner_id = request.POST.get('partner_id')
+        member_id = request.POST.get('member_id')
         interface_name = request.POST.get('interface_name')
+        sign_type = request.POST.get('sign_type')
+        url = ''
+        if env == 'test':
+            url  = Const.test_interface_url
+        else:
+            urls = Const.inte_interface_url
+
         confUtil.initConf()
         parameters = confUtil.getParameters(partner_id,interface_name)
-        request_body = '{\"'
+        request_body = {}
         for parameter in parameters:
-            request_body += parameter + '\":\"' + request.POST.get(parameter,'') + '\",\"'
-        request_body += 'service\":\"' + interface_name + '\"}'
-        json = toolsUtil.get_post_json(request_body)
-        print toolsUtil.post_request(env,json)
+            request_body[parameter] = request.POST.get(parameter,'')
+        sign =''
+        headers = {'version':'v1.1','content-type':'application/json'}
+
+
+        if sign_type == 'MD5':
+            sign = su.md5_sign(json.dumps(request_body)+ toolsUtil.getParnter(env,member_id))
+            headers['partner'] = partner_id
+            headers['sign'] = sign
+            headers['singAlg'] = 'MD5'
+            headers['encryptAlg'] = 'AES'
+
+        else:
+            sign = su.rsa_sign(json.dumps(request_body))
+            headers['partner'] = partner_id
+            headers['sign'] = sign
+
+        r = requests.post(url, headers=headers, data=json.dumps(request_body))
+        print r.text
 
     confUtil.initConf()
     partners = confUtil.getSections()
