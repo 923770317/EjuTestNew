@@ -49,9 +49,9 @@ def get_post_json(request_body):
 def post_request(env,json):
     url = ''
     if env == 'test':
-        url = 'https://test2.ejupay.cn/gateway-mock/mock/doMock'
+        url = 'http://test2.ejupay.cn/gateway-mock/mock/doMock'
     else:
-        url = 'https://inte2.ejupay.cn/gateway-mock/mock/doMock'
+        url = 'http://inte2.ejupay.cn/gateway-mock/mock/doMock'
     r = requests.post(url,json)
 
     return r.text

@@ -11,7 +11,7 @@ class confUtil():
         confUtil.conf = configparser.ConfigParser()
         # confUtil.conf.read(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),'cong.ini'))
         # confUtil.conf.read('C:/Users/zc/PycharmProjects/EjuTest/cong.ini')
-        confUtil.conf.read(os.path.join(os.path.dirname(os.getcwd()),'cong.ini'))
+        confUtil.conf.read(os.path.join(os.getcwd(),'cong.ini'))
 
     @staticmethod
     def getSections():
@@ -33,7 +33,11 @@ class confUtil():
 
 
 if __name__ == "__main__":
+
     confUtil.initConf()
-    print confUtil.getValues('100001','queryAccount')
+    print confUtil.getSections()
+    # print confUtil.getOptions('100001')
+    # print confUtil.getValues('100001','queryAccount')
+    # print confUtil.getParameters('100001','queryAccount')
 
 

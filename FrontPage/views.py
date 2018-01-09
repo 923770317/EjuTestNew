@@ -8,7 +8,7 @@ import sys
 sys.path.append("/util")
 from util import oracleUtil as ou
 from util import toolsUtil
-from util import confUtil
+from util.confUtil import confUtil
 from django.http import JsonResponse
 from cx_Oracle import DatabaseError
 # Create your views here.
@@ -178,8 +178,8 @@ def sendRequest(request):
         env  = request.POST.get('env')
         partner_id = request.POST.get('partner_id')
         interface_name = request.POST.get('interface_name')
-        confUtil.confUtil.initConf()
-        parameters = confUtil.confUtil.getParameters(partner_id,interface_name)
+        confUtil.initConf()
+        parameters = confUtil.getParameters(partner_id,interface_name)
         request_body = '{\"'
         for parameter in parameters:
             request_body += parameter + '\":\"' + request.POST.get(parameter,'') + '\",\"'
@@ -187,7 +187,8 @@ def sendRequest(request):
         json = toolsUtil.get_post_json(request_body)
         print toolsUtil.post_request(env,json)
 
-    confUtil.confUtil.initConf()
-    partners = confUtil.confUtil.getSections()
+    confUtil.initConf()
+    partners = confUtil.getSections()
     return render_to_response('sendRequest.html',{'partners':partners})
 
+#
