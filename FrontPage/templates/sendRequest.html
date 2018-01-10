@@ -16,20 +16,58 @@
 
         </br>
         </br>
-        商户：
-        <select class="form-control">
-            {% for partner in partners %}
-                <option>{{ partner }}</option>
-            {% endfor %}
-        </select>
+
+        <div class="radio">
+            <label>
+                <input type="radio" name="singTypeOptions" id="optionsRadios1" value="RSA" checked> RSA
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" name="singTypeOptions" id="optionsRadios2" value="MD5"> MD5
+            </label>
+        </div>
+
+        </br>
+
+{#        </br>#}
+{#        商户：#}
+{#        <select class="form-control">#}
+{#            {% for partner in partners %}#}
+{#                <option>{{ partner }}</option>#}
+{#            {% endfor %}#}
+{#        </select>#}
+{##}
+{#        </br>#}
+{#        </br>#}
+{##}
+{#        接口：#}
+{#         <select class="form-control">#}
+{#            <option></option>#}
+{#        </select>#}
+{##}
+{#        </br>#}
+{#        </br>#}
+
+        <div class="form-group">
+            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+            <div class="input-group">
+                <div class="input-group-addon">PARTNER：</div>
+                <input type="text" name="partner_id" class="form-control" id="partner_id" >
+
+            </div>
+        </div>
 
         </br>
         </br>
 
-        接口：
-         <select class="form-control">
-            <option></option>
-        </select>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">SERVICE：</div>
+                <input type="text" name="interface_code" class="form-control" id="interface_code" >
+
+            </div>
+        </div>
 
         </br>
         </br>
@@ -37,13 +75,23 @@
         <div class="form-group">
             <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
             <div class="input-group">
-                <div class="input-group-addon">会员号：</div>
-                <input type="text" name="memberId" class="form-control" id="memberId" placeholder="000000">
+                <div class="input-group-addon">MEMBERID：</div>
+                <input type="text" name="member_id" class="form-control" id="member_id" >
 
             </div>
         </div>
-    <button type="submit" class="btn btn-primary">DELETE CERT</button>
-</form>
+
+
+
+        <button type="submit" class="btn btn-primary">DELETE CERT</button>
+    </form>
+    </br>
+    </br>
+    <div class="input-group">
+                <div class="input-group-addon">Response：</div>
+                <input type="text" name="response" class="form-control" id="response" >
+
+            </div>
     <script>
     $('.delete-cert').on('submit', function (e) {
         e.preventDefault();
@@ -52,19 +100,18 @@
           btn: ['删除','取消'] //按钮
         }, function(){
             $.ajax({
-                url: '/frontpage/tools/deleteCert/',
+                url: '/frontpage/tools/sendRequest/',
                 type: 'post',
-                data: {"memberId": $('#memberId').val(),"env": $('[name="optionsRadios"]:checked').val()},
+                data: {"partner_id":$('#partner_id').val(),"member_id": $('#member_id').val(),"env": $('[name="optionsRadios"]:checked').val(),
+                "sign_type": $('[name="singTypeOptions"]:checked').val(),"interface_code":$('#interface_code').val()},
                 success: function (res) {
-                    if(res['status'] == '000')
+                    if(res['status'] == '200')
                     {
-                        layer.msg(res['message'])
-                        $('#memberId').val("")
+                        $('#response').val(res["message"])
                     }
                     else
                     {
                         layer.msg(res['message'])
-                        $('#memberId').val("")
                     }
 
                 },

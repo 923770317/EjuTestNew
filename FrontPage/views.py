@@ -182,7 +182,7 @@ def sendRequest(request):
         env  = request.POST.get('env')
         partner_id = request.POST.get('partner_id')
         member_id = request.POST.get('member_id')
-        interface_name = request.POST.get('interface_name')
+        interface_code = request.POST.get('interface_code')
         sign_type = request.POST.get('sign_type')
         url = ''
         if env == 'test':
@@ -190,11 +190,14 @@ def sendRequest(request):
         else:
             urls = Const.inte_interface_url
 
-        confUtil.initConf()
-        parameters = confUtil.getParameters(partner_id,interface_name)
+        # confUtil.initConf()
+        # parameters = confUtil.getParameters(partner_id,interface_name)
         request_body = {}
-        for parameter in parameters:
-            request_body[parameter] = request.POST.get(parameter,'')
+        # for parameter in parameters:
+        #     request_body[parameter] = request.POST.get(parameter,'')
+        request_body['requestTime'] =1515566266376
+        request_body['service'] = interface_code
+        request_body['memberId'] = member_id
         sign =''
         headers = {'version':'v1.1','content-type':'application/json'}
 
@@ -212,10 +215,11 @@ def sendRequest(request):
             headers['sign'] = sign
 
         r = requests.post(url, headers=headers, data=json.dumps(request_body))
+        print r.status_code
         print r.text
+        return JsonResponse({'status': str(r.status_code), 'message': r.text})
 
     confUtil.initConf()
     partners = confUtil.getSections()
     return render_to_response('sendRequest.html',{'partners':partners})
 
-#
